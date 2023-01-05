@@ -12,13 +12,15 @@ import java.util.Map;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 @Service
 public class MovieCharacterServiceImpl implements MovieCharacterService {
-    private static final String START_URL = "https://rickandmortyapi.com/api/character";
     private static final int MIN_RANDOM_ID = 1;
+    @Value("${character.external.api.url}")
+    private String externalApiUrl;
     private final HttpClient httpClient;
     private final MovieCharacterRepository movieCharacterRepository;
     private final MovieCharacterMapper mapper;
@@ -35,7 +37,7 @@ public class MovieCharacterServiceImpl implements MovieCharacterService {
     @Scheduled(cron = "0 0 8 * * ?")
     @Override
     public void syncExternalCharacters() {
-        ApiResponseDto apiResponseDto = httpClient.get(START_URL, ApiResponseDto.class);
+        ApiResponseDto apiResponseDto = httpClient.get(externalApiUrl, ApiResponseDto.class);
         saveDtosToDb(apiResponseDto);
         while (apiResponseDto.getInfo().getNext() != null) {
             apiResponseDto = httpClient
