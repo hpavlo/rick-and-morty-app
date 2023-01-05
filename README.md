@@ -7,6 +7,16 @@ The user can send a request to two endpoints:<br>
 `/movie-characters/random` - to get a description of a random character<br>
 `/movie-characters/by-name?name=...` - to search for a character by part of their name
 
+## 🧑‍💻 Technologies
+| Technology             | Version |
+|:-----------------------|:--------|
+| JDK                    | 17      |
+| Maven                  | 4.0.0   |
+| Spring Boot            | 3.0.1   |
+| Swagger                | 1.6.8   |
+| PostgreSQL             | 15      |
+| Liquibase              | 4.17.2  |
+
 ## 📎 How to run this app
 1. Clone the project from GitHub
 2. Configure `/resources/application.properties` with your own URL, username and password
